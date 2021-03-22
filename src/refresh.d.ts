@@ -1,0 +1,1 @@
+export function run(codes: string, frequency: number, cb: (rank:string, stocks:string)=>void): void

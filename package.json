@@ -1,0 +1,64 @@
+{
+	"name": "refresh",
+	"publisher": "gwtjs",
+	"displayName": "refresh",
+	"description": "",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.54.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "refresh configuration",
+			"properties": {
+				"refresh.codes": {
+					"type": "string",
+					"default": "",
+					"description": "the code want to refresh, split by comma for multi codes"
+				},
+				"refresh.frequency": {
+					"type": ["number"],
+					"default": 1500,
+					"description": "the ms to refresh one time"
+				}
+			}
+		},
+		"views": {
+		"explorer": [
+			{
+			"id": "refreshView",
+			"name": "refreshView"
+			}
+		]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.54.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.19.0",
+		"@typescript-eslint/eslint-plugin": "^4.14.1",
+		"@typescript-eslint/parser": "^4.14.1",
+		"glob": "^7.1.6",
+		"mocha": "^8.2.1",
+		"typescript": "^4.1.3",
+		"vscode-test": "^1.5.0"
+	}
+}
