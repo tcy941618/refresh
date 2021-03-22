@@ -5,7 +5,7 @@ This is the README for your extension "refresh". After writing up a brief descri
 ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
+u3wejulupior5yxozvg4a24rlqhpgz3rl6epcb4p2od32v3vojta
 For example if there is an image subfolder under your extension project workspace:
 
 \!\[feature X\]\(images/feature-x.png\)
