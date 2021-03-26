@@ -95,7 +95,11 @@ export function isWorkDay() {
 
 export function haveCode(code:string) {
     if(!code){
-        vscode.window.showInformationMessage('请先配置code')
+        vscode.window.showErrorMessage(`请先配置code`, '打开配置项').then(selection => {
+            if (selection === '打开配置项') {
+                vscode.commands.executeCommand('workbench.action.openSettings');
+            }
+        });
         return false
     }
     return true
@@ -115,7 +119,7 @@ export function autoRefresh(codes='', frequency=500, cb: (rank:string, stock:str
 }
 
 export function run(codes='', cb: (rank:string, stock:string)=>void) {
-    if(haveCode(codes)) {
+    if(haveCode(codes) && isWorkDay()) {
         queryRank(cb)
         query(codes,cb)
     }
