@@ -3,7 +3,7 @@
 	"publisher": "gwtjs",
 	"displayName": "refresh",
 	"description": "",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.54.0"
 	},
@@ -29,19 +29,21 @@
 					"description": "the code want to refresh, split by comma for multi codes"
 				},
 				"refresh.frequency": {
-					"type": ["number"],
+					"type": [
+						"number"
+					],
 					"default": 1500,
 					"description": "the ms to refresh one time"
 				}
 			}
 		},
 		"views": {
-		"explorer": [
-			{
-			"id": "refreshView",
-			"name": "refreshView"
-			}
-		]
+			"explorer": [
+				{
+					"id": "refreshView",
+					"name": "refreshView"
+				}
+			]
 		}
 	},
 	"scripts": {
