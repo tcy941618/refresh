@@ -3,7 +3,7 @@
 	"publisher": "gwtjs",
 	"displayName": "refresh",
 	"description": "",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"engines": {
 		"vscode": "^1.54.0"
 	},
@@ -11,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"onView:refreshView"
 	],
 	"repository": {
 		"type": "git",
@@ -19,6 +19,23 @@
 	},
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands": [
+			{
+			  "command": "refreshView.refresh",
+			  "title": "refresh",
+			  "icon": {
+				"light": "src/resources/light/refresh.svg",
+				"dark": "src/resources/dark/refresh.svg"
+			  }
+			}
+		],
+		"menus": {
+			"view/title": [{
+				"when": "view == refreshView",
+				"command": "refreshView.refresh",
+				"group": "navigation"
+			}]
+		},
 		"configuration": {
 			"type": "object",
 			"title": "refresh configuration",
@@ -26,14 +43,14 @@
 				"refresh.codes": {
 					"type": "string",
 					"default": "",
-					"description": "the code want to refresh, split by comma for multi codes"
+					"description": "the codes you want to refresh, and split by comma for multi codes"
 				},
 				"refresh.frequency": {
 					"type": [
 						"number"
 					],
 					"default": 1500,
-					"description": "the ms to refresh one time"
+					"description": "the frequency to refresh"
 				}
 			}
 		},

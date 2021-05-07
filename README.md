@@ -1,48 +1,34 @@
 # refresh README
 
-This is the README for your extension "refresh". After writing up a brief description, we recommend including the following sections.
+a tool to help you to see what do you want
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-u3wejulupior5yxozvg4a24rlqhpgz3rl6epcb4p2od32v3vojta
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+you can see the realtime price of given codes
 
 ## Extension Settings
 
 Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-For example:
-
-This extension contributes the following settings:
-
-* `refresh.code`: enable/disable this extension
-* `refresh.refresh`: set to `blah` to do something
+* `refresh.codes`: the codes you want to refresh, and split by comma for multi codes
+* `refresh.frequency`: the frequency to refresh
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+[https://github.com/gwtjs/refresh/issues](https://github.com/gwtjs/refresh/issues)
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
+1. refresh feature
 
-Initial release of ...
+### 0.3.0
 
-### 1.0.1
+1. fix bugs
 
-Fixed issue #.
+### 0.4.0
 
-### 1.1.0
+1. fix bugs
 
-Added features X, Y, and Z.
+2. add refresh menu

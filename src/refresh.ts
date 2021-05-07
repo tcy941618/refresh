@@ -122,6 +122,8 @@ export function run(codes='', cb: (rank:string, stock:string)=>void) {
     if(haveCode(codes) && isWorkDay()) {
         queryRank(cb)
         query(codes,cb)
+    }else {
+        cb('no work to do','')
     }
 }
 
