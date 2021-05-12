@@ -24,8 +24,8 @@
 			  "command": "refreshView.refresh",
 			  "title": "refresh",
 			  "icon": {
-				"light": "src/resources/light/refresh.svg",
-				"dark": "src/resources/dark/refresh.svg"
+				"light": "./resources/light/refresh.svg",
+				"dark": "./resources/dark/refresh.svg"
 			  }
 			}
 		],
