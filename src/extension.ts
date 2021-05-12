@@ -28,8 +28,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(vscode.commands.registerCommand('refreshView.refresh', ()=>{
-		console.log('dfsas');
-		
 		run(refreshViewProvider)
 	}));
 }

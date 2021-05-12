@@ -3,9 +3,11 @@ const readline = require("readline")
 import * as vscode from 'vscode';
 let pre:any = {}
 
+type callback = (rank:string, stock?:string)=>void
+
 const update = (()=>{
     let rank:string|null, stock:string|null
-    return (data:any, isRank:boolean, cb:(rank:string, stock:string)=>void) => {
+    return (data:any, isRank:boolean, cb: callback) => {
         if(isRank){
             rank = data
         }else  {
@@ -15,7 +17,7 @@ const update = (()=>{
             // console.clear()
             // console.log(rank)
             // console.log(stock)
-            cb && cb(rank, stock)
+            cb(rank, stock)
             rank = null
             stock = null
         }
@@ -33,8 +35,9 @@ function format(code:string, result:any){
     // console.log(result[3],(percent*100).toFixed(2),result[6],result[10]/100+'',result[7],result[20]/100+'',result[4],result[5],result[1],result[2])
 }
 
-function query(code:string,cb:(rank:string, stock:string)=>void) {
-    http.get('http://hq.sinajs.cn/list='+code, (res:any)=>{
+function query(code:string,cb:callback) {
+    const url = 'http://hq.sinajs.cn/list='+code
+    http.get(url, (res:any)=>{
         if(res.statusCode===200) {
             res.setEncoding('utf8');
             let rawData = '';
@@ -54,12 +57,18 @@ function query(code:string,cb:(rank:string, stock:string)=>void) {
                 }).filter(d=>!!d).join('\n')
                 update(formated,false,cb)
             });
+        }else {
+            cb('request error:'+url)
         }
-    })
+    }).on('error', (e:any) => {
+        cb(`出现错误: ${e.message}`);
+        query(code,cb)
+    });
 }
 
-function queryRank(cb:(rank:string, stock:string)=>void) {
-    http.get('http://hq.sinajs.cn/list=s_sh000001', (res:any)=>{
+function queryRank(cb:callback) {
+    const url = 'http://hq.sinajs.cn/list=s_sh000001'
+    http.get(url, (res:any)=>{
         if(res.statusCode===200) {
             res.setEncoding('utf8');
             let rawData = '';
@@ -77,8 +86,13 @@ function queryRank(cb:(rank:string, stock:string)=>void) {
                 update(formated,true,cb)
                 // console.log()
             });
+        }else {
+            cb('request error:'+url)
         }
-    })
+    }).on('error', (e:any) => {
+        cb(`出现错误: ${e.message}`);
+        queryRank(cb)
+    });
 }
 
 export function isWorkDay() {
@@ -86,9 +100,9 @@ export function isWorkDay() {
     const day = now.getDay()
     const date = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`
     const amStart = new Date(`${date} 9:30`).getTime()
-    const amEnd = new Date(`${date} 11:31`).getTime()
+    const amEnd = new Date(`${date} 11:35`).getTime()
     const pmStart = new Date(`${date} 13:00`).getTime()
-    const pmEnd = new Date(`${date} 15:01`).getTime()
+    const pmEnd = new Date(`${date} 15:05`).getTime()
     const time = now.getTime()
     return day!==6&&day!==0&& ((time>=amStart && time<=amEnd)||(time>=pmStart && time<=pmEnd))      
 }
@@ -105,7 +119,7 @@ export function haveCode(code:string) {
     return true
 }
 
-export function autoRefresh(codes='', frequency=500, cb: (rank:string, stock:string)=>void) {
+export function autoRefresh(codes='', frequency=500, cb: callback) {
     if(haveCode(codes)) {
         queryRank(cb)
         query(codes,cb)
@@ -118,13 +132,17 @@ export function autoRefresh(codes='', frequency=500, cb: (rank:string, stock:str
     }
 }
 
-export function run(codes='', cb: (rank:string, stock:string)=>void) {
-    if(haveCode(codes) && isWorkDay()) {
-        queryRank(cb)
-        query(codes,cb)
-    }else {
-        cb('no work to do','')
+export function run(codes='', cb: callback) {
+    if(!haveCode(codes)) {
+        cb('have no codes')
+        return
+    } 
+    if(!isWorkDay()) {
+        // cb('not in worktime')
+        return 
     }
+    queryRank(cb)
+    query(codes,cb)
 }
 
 // run('sz002824,sh605338,sz002127')
